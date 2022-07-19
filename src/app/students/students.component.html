@@ -1,0 +1,34 @@
+<h1>Students List</h1>
+
+<!-- todo: Make FAB -->
+<button (click)="toggleAddModal()">
+    <i class="bi bi-plus"></i>
+</button>
+
+<div>
+    <ul>
+        <li *ngFor="let student of students; let i = index;">
+            <span>{{i+1}}.</span>
+
+            <h3>{{student.name}}</h3>
+
+            <ul>
+                <li>Cohort: {{student.cohort}}</li>
+                <li><i class="bi bi-envelope"></i> {{student.email}}</li>
+                <li><i class="bi bi-telephone"></i> {{student.phoneNumber}}</li>
+            </ul>
+
+            <div class="actions">
+                <button>
+                    <i class="bi bi-pencil"></i>
+                </button>
+                <button (click)="deleteStudentInfo(student._id!)">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Student Add Form -->
+    <students-add *ngIf="showAddForm" (close)="toggleAddModal()"></students-add>
+</div>
