@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Student } from '../student';
 import { StudentsService } from '../students.service';
 
@@ -9,27 +9,19 @@ import { StudentsService } from '../students.service';
     styleUrls: ['./add-student.component.css']
 })
 export class AddStudentComponent implements OnInit {
-    @Output('close') onClose = new EventEmitter();
-
-    student: Student<undefined> = {
-        _id: undefined,
-        name: 'Nathaniel',
-        email: 'nathan@email.com',
-        cohort: '3',
-        phoneNumber: 1234567
+    student: Student = {
+        name: '',
+        email: '',
+        cohort: '',
+        phoneNumber: undefined
     }
 
-    constructor(private studentsService: StudentsService) { }
+    constructor(private studentsService: StudentsService, private location: Location) { }
 
-    addNewStudent(form: NgForm): void {
+    addNewStudent(): void {
         this.studentsService.createStudent(this.student).subscribe(() => {
-            form.resetForm();
-            this.close();
+            this.location.back();
         })
-    }
-
-    close(): void {
-        this.onClose.emit();
     }
 
     ngOnInit(): void {

@@ -1,9 +1,11 @@
-<header>
-    <h1>Amber App 5</h1>
+<header class="py-4 bg-gray-50 bg-opacity-5 fixed inset-0 bottom-auto">
+    <div class="container">
+        <h2 class="text-white text-lg mb-2">
+            <a routerLink="/students">Amber App 5</a>
+        </h2>
+    </div>
 </header>
 
-<main>
-    <div class="container">
-        <app-students></app-students>
-    </div>
+<main class="min-h-screen">
+    <router-outlet></router-outlet>
 </main>

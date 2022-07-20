@@ -1,7 +1,7 @@
-export interface Student<T = string> {
-    _id: T;
-    name: string;
-    email: string;
-    cohort: string;
+export interface Student {
+    _id?: string;
+    name?: string;
+    email?: string;
+    cohort?: string;
     phoneNumber?: number;
 }

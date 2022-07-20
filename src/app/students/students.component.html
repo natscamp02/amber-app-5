@@ -1,34 +1,77 @@
-<h1>Students List</h1>
+<div
+    class="h-screen py-16 bg-[url('https://images.unsplash.com/photo-1600303881706-b8a373dc73c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80')] bg-cover">
+    <div class="container">
+        <h1 class="title text-4xl text-center font-semibold my-8 text-white">Students List</h1>
 
-<!-- todo: Make FAB -->
-<button (click)="toggleAddModal()">
-    <i class="bi bi-plus"></i>
-</button>
+        <!-- * Add Student FAB -->
+        <a class="bg-gray-200 text-3xl inline-flex rounded-full p-4 aspect-square items-center fixed bottom-12 right-12 hover:bg-gray-300 transition"
+            routerLink="/students/add" title="Add a new student">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+        </a>
 
-<div>
-    <ul>
-        <li *ngFor="let student of students; let i = index;">
-            <span>{{i+1}}.</span>
+        <!-- Student List -->
+        <div class="w-fit mx-auto p-8 bg-white">
+            <ul class="grid grid-cols-3 gap-8" *ngIf="students?.length; else missing">
+                <li *ngFor="let student of students; let i = index;">
+                    <div class="card border-2 border-black py-3 px-4 w-full h-full">
+                        <div class="content relative isolate flex flex-col h-full">
+                            <span class="text-9xl absolute top-0 left-0 opacity-5 -z-10">{{i+1}}.</span>
 
-            <h3>{{student.name}}</h3>
+                            <div class="mb-4">
+                                <h3 class="text-lg">{{student.name}}</h3>
+                                <p class="text-sm text-gray-500">
+                                    Cohort {{student.cohort}}
+                                </p>
+                            </div>
 
-            <ul>
-                <li>Cohort: {{student.cohort}}</li>
-                <li><i class="bi bi-envelope"></i> {{student.email}}</li>
-                <li><i class="bi bi-telephone"></i> {{student.phoneNumber}}</li>
+                            <div class="flex-1 mb-6 pr-12">
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                                    </svg>
+                                    {{student.email}}
+                                </p>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                    </svg>
+                                    {{student.phoneNumber}}
+                                </p>
+                            </div>
+
+                            <div class="actions flex items-center justify-end gap-2 ">
+                                <button class="transition hover:text-blue-500"
+                                    [routerLink]="['/students','edit', student._id]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                    </svg>
+                                </button>
+                                <button class="transition hover:text-red-500" (click)="deleteStudent(student._id!)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
             </ul>
 
-            <div class="actions">
-                <button>
-                    <i class="bi bi-pencil"></i>
-                </button>
-                <button (click)="deleteStudentInfo(student._id!)">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </div>
-        </li>
-    </ul>
-
-    <!-- Student Add Form -->
-    <students-add *ngIf="showAddForm" (close)="toggleAddModal()"></students-add>
+            <ng-template #missing>
+                <p>No students found. Try <a class="text-blue-500 hover:underline" routerLink="/students/add">adding</a>
+                    one.</p>
+            </ng-template>
+        </div>
+    </div>
 </div>

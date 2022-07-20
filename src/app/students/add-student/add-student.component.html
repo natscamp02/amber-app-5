@@ -1,31 +1,35 @@
-<div class="modal">
-    <div class="overlay"></div>
+<div class="bg-[url('/assets/bg2.svg')] bg-no-repeat bg-cover h-screen grid place-items-center">
+    <form #addForm="ngForm" (submit)="addForm.valid && addNewStudent()"
+        class="w-full max-w-sm mx-auto shadow-lg py-6 px-8">
+        <h2 class="text-center text-2xl mb-8 uppercase">Add New Student</h2>
 
-    <form #addForm="ngForm" (submit)="addForm.valid && addNewStudent(addForm)" (reset)="close()">
-        <h2>Add New Student</h2>
-
-        <div>
-            <label for="name">Student Name</label>
-            <input type="text" name="name" id="name" [(ngModel)]="student.name">
+        <div class="grid gap-1 mb-6">
+            <label for="name" class="text-sm text-gray-600">Student Name</label>
+            <input type="text" name="name" id="name" [(ngModel)]="student.name" class="w-full" required>
         </div>
 
-        <div>
-            <label for="email">Email Address</label>
-            <input type="email" name="email" id="email" [(ngModel)]="student.email">
+        <div class="grid gap-1 mb-6">
+            <label for="email" class="text-sm text-gray-600">Email Address</label>
+            <input type="email" name="email" id="email" [(ngModel)]="student.email" class="w-full" required>
         </div>
 
-        <div>
-            <label for="cohort">Cohort</label>
-            <input type="text" name="cohort" id="cohort" [(ngModel)]="student.cohort">
+        <div class="grid gap-1 mb-6">
+            <label for="cohort" class="text-sm text-gray-600">Cohort</label>
+            <input type="text" name="cohort" id="cohort" [(ngModel)]="student.cohort" class="w-full" required>
         </div>
 
-        <div>
-            <label for="phoneNumber">Contact Number</label>
-            <input type="tel" name="phoneNumber" id="phoneNumber" [(ngModel)]="student.phoneNumber">
+        <div class="grid gap-1 mb-8">
+            <label for="phoneNumber" class="text-sm text-gray-600">Contact Number</label>
+            <input type="tel" name="phoneNumber" id="phoneNumber" [(ngModel)]="student.phoneNumber" class="w-full"
+                required>
         </div>
 
 
-        <button type="submit">Add Student</button>
-        <button type="reset">Cancel</button>
+        <div class="flex items-center justify-end gap-4">
+            <button class="inline-flex py-1.5 px-3 hover:bg-gray-100 transition" routerLink="/students">Cancel</button>
+            <button class="inline-flex py-1.5 px-3 text-white bg-blue-500 hover:bg-blue-600 transition"
+                type="submit">Add
+                Student</button>
+        </div>
     </form>
 </div>

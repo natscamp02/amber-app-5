@@ -30,7 +30,7 @@ export class StudentsService {
         return this.http.get<APIResponse<Student>>(this.API_URL + '/' + id).pipe(catchError(this.handleHTTPError));
     }
 
-    createStudent(data: Student<undefined>): Observable<APIResponse<Student | undefined>> {
+    createStudent(data: Student): Observable<APIResponse<Student | undefined>> {
         return this.http.post<APIResponse<Student>>(this.API_URL, data).pipe(catchError(this.handleHTTPError));
     }
 
