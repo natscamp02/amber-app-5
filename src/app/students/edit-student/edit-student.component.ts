@@ -15,6 +15,10 @@ export class EditStudentComponent implements OnInit {
 
     constructor(private studentsService: StudentsService, private location: Location, private route: ActivatedRoute) { }
 
+    ngOnInit(): void {
+        this.getCurrentStudent();
+    }
+
     private getCurrentStudent(): void {
         this.id = this.route.snapshot.params['id'];
 
@@ -29,8 +33,5 @@ export class EditStudentComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-        this.getCurrentStudent();
-    }
 
 }

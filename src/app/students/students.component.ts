@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Student } from './student';
 import { StudentsService } from './students.service';
@@ -11,7 +10,12 @@ import { StudentsService } from './students.service';
 export class StudentsComponent implements OnInit {
     students: Student[] = [];
 
-    constructor(private studentsService: StudentsService, private router: Router) { }
+    constructor(private studentsService: StudentsService) { }
+
+    // Lifecycle hooks
+    ngOnInit(): void {
+        this.getStudentsFromAPI();
+    }
 
     // API Methods
     private getStudentsFromAPI(): void {
@@ -21,18 +25,9 @@ export class StudentsComponent implements OnInit {
     }
 
     deleteStudent(id: string): void {
-        let confirmation = window.confirm('Are you sure you want to delete this student?')
+        let confirmation = window.confirm('Are you sure you want to delete this student?');
         if (!confirmation) return;
 
-        this.studentsService.deleteStudent(id).subscribe(() => {
-            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-            this.router.onSameUrlNavigation = 'reload';
-            this.router.navigateByUrl('/students');
-        })
-    }
-
-    // Lifecycle hooks
-    ngOnInit(): void {
-        this.getStudentsFromAPI();
+        this.studentsService.deleteStudent(id).subscribe(() => this.ngOnInit());
     }
 }

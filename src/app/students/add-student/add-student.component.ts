@@ -18,13 +18,13 @@ export class AddStudentComponent implements OnInit {
 
     constructor(private studentsService: StudentsService, private location: Location) { }
 
+    ngOnInit(): void {
+    }
+
     addNewStudent(): void {
         this.studentsService.createStudent(this.student).subscribe(() => {
             this.location.back();
         })
-    }
-
-    ngOnInit(): void {
     }
 
 }
