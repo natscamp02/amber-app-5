@@ -20,7 +20,10 @@ export class StudentsComponent implements OnInit {
         });
     }
 
-    deleteStudent(id: string) {
+    deleteStudent(id: string): void {
+        let confirmation = window.confirm('Are you sure you want to delete this student?')
+        if (!confirmation) return;
+
         this.studentsService.deleteStudent(id).subscribe(() => {
             this.router.routeReuseStrategy.shouldReuseRoute = () => false;
             this.router.onSameUrlNavigation = 'reload';
