@@ -1,13 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
+import { APIResponse } from '../api-response';
 import { Student } from './student';
 
-interface APIResponse<T = undefined> {
-    status: string;
-    data?: T;
-    message?: string;
-}
 
 @Injectable({
     providedIn: 'root'
